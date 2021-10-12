@@ -33,8 +33,13 @@ def callback():
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    message = TextSendMessage(text=event.message.text)
+    # message = TextSendMessage(text=event.message.text)
+    message = ImageSendMessage(
+        original_content_url='https://example.com/original.jpg',
+        preview_image_url='https://example.com/preview.jpg'
+    )
     line_bot_api.reply_message(event.reply_token, message)
+
 
 import os
 if __name__ == "__main__":

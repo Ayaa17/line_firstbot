@@ -38,12 +38,19 @@ def handle_message(event):
     #     original_content_url=".\\123.jpg",
     #     preview_image_url='\\123.jpg'
     # )
-    message = VideoSendMessage(
-        originalContentUrl='https://www.sample-videos.com/video123/mp4/240/big_buck_bunny_240p_1mb.mp4',
-        previewImageUrl='https://www.sample-videos.com/img/Sample-jpg-image-50kb.jpg'
-    )
-    line_bot_api.reply_message(event.reply_token, message)
+    # message = VideoSendMessage(
+        # originalContentUrl='https://www.sample-videos.com/video123/mp4/240/big_buck_bunny_240p_1mb.mp4',
+        # previewImageUrl='https://www.sample-videos.com/img/Sample-jpg-image-50kb.jpg'
+    # )
+    # line_bot_api.reply_message(event.reply_token, message)
 
+    line_bot_api.replyMessage(event.replyToken,
+                              {
+                                  type: 'video',
+                                  'originalContentUrl': 'https://www.sample-videos.com/video123/mp4/240/big_buck_bunny_240p_1mb.mp4',
+                                  'previewImageUrl': 'https://www.sample-videos.com/img/Sample-jpg-image-50kb.jpg'
+                              }
+                              )
 
 import os
 if __name__ == "__main__":

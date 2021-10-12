@@ -35,8 +35,8 @@ def callback():
 def handle_message(event):
     # message = TextSendMessage(text=event.message.text)
     message = ImageSendMessage(
-        original_content_url='https://example.com/original.jpg',
-        preview_image_url='https://example.com/preview.jpg'
+        original_content_url='https://developers.line.biz/media/messaging-api/messages/image-full-04fbba55.png',
+        preview_image_url='https://developers.line.biz/media/messaging-api/messages/image-167efb33.png'
     )
     line_bot_api.reply_message(event.reply_token, message)
 

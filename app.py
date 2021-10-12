@@ -33,11 +33,11 @@ def callback():
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    # message = TextSendMessage(text=event.message.text)
-    message = ImageSendMessage(
-        original_content_url=".\\123.jpg",
-        preview_image_url='\\123.jpg'
-    )
+    message = TextSendMessage(text=event.message.text)
+    # message = ImageSendMessage(
+    #     original_content_url=".\\123.jpg",
+    #     preview_image_url='\\123.jpg'
+    # )
     line_bot_api.reply_message(event.reply_token, message)
 
 

@@ -33,26 +33,93 @@ def callback():
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    # message = TextSendMessage(text=event.message.text)
-    # message = ImageSendMessage(
-    #     original_content_url=".\\123.jpg",
-    #     preview_image_url='\\123.jpg'
-    # )
-    # message = VideoSendMessage(
-        # originalContentUrl='https://www.sample-videos.com/video123/mp4/240/big_buck_bunny_240p_1mb.mp4',
-        # previewImageUrl='https://www.sample-videos.com/img/Sample-jpg-image-50kb.jpg'
-    # )
-    # line_bot_api.reply_message(event.reply_token, message)
+    message = TextSendMessage(text=event.message.text)
+    print(event.message)
+    line_bot_api.reply_message(event.reply_token, message)
 
-    line_bot_api.replyMessage(event.replyToken,
-                              {
-                                  type: 'video',
-                                  'originalContentUrl': 'https://www.sample-videos.com/video123/mp4/240/big_buck_bunny_240p_1mb.mp4',
-                                  'previewImageUrl': 'https://www.sample-videos.com/img/Sample-jpg-image-50kb.jpg'
-                              }
-                              )
+# 貼圖訊息
+@handler.add(MessageEvent, message=StickerMessage)
+def handle_message(event):
+    print(event.reply_token)
+    print(event.message)
+    message = StickerSendMessage(
+        package_id="446",
+        sticker_id="1991"
+    )
+    line_bot_api.reply_message(event.reply_token, message)
+
+#圖片訊息
+@handler.add(MessageEvent, message=ImageMessage)
+def handle_message(event):
+    print(event.reply_token)
+    print(event.message)
+    message = ImageSendMessage(
+        original_content_url="https://images.pexels.com/photos/4524371/pexels-photo-4524371.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+        preview_image_url="https://images.pexels.com/photos/4524371/pexels-photo-4524371.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
+    )
+    line_bot_api.reply_message(event.reply_token, message)
+
+#影片訊息
+@handler.add(MessageEvent, message=VideoMessage)
+def handle_message(event):
+    print(event.reply_token)
+    print(event.message)
+    message = VideoSendMessage(
+        original_content_url ="https://vod-progressive.akamaized.net/exp=1634043402~acl=%2Fvimeo-prod-skyfire-std-us%2F01%2F780%2F22%2F553903899%2F2620242777.mp4~hmac=74dc296a0f11ecb7c619861289284e9488cba0d657842a7f603e8675e2b8a117/vimeo-prod-skyfire-std-us/01/780/22/553903899/2620242777.mp4?filename=pexels-shvets-production-8020523.mp4",
+        preview_image_url ='https://images.pexels.com/videos/8020523/black-fashion-red-red-background-8020523.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'
+    )
+    line_bot_api.reply_message(event.reply_token, message)
+
+#音檔訊息
+@handler.add(MessageEvent, message=AudioMessage)
+def handle_message(event):
+    print(event.reply_token)
+    print(event.message)
+    message = AudioSendMessage(
+        original_content_url='https://www.beatpick.com/storage/Mokhov/streaming/Mokhov_15847128.mp3',
+        duration =240000,  #milliseconds
+    )
+    line_bot_api.reply_message(event.reply_token, message)
+
+# 位置訊息
+@handler.add(MessageEvent, message=LocationMessage)
+def handle_message(event):
+    print(event.reply_token)
+    print(event.message)
+    message = LocationSendMessage(
+        title="my location",
+        address="1-6-1 Yotsuya, Shinjuku-ku, Tokyo, 160-0004, Japan",
+        latitude="35.687574",
+        longitude="139.72922"
+    )
+    line_bot_api.reply_message(event.reply_token, message)
+
+@handler.add(MessageEvent, message=ImageMessage)
+def handle_message(event):
+    print(event.reply_token)
+    print(event.message)
+    message = ImagemapSendMessage(
+        base_url='https://example.com/base',
+        alt_text='this is an imagemap',
+        base_size=BaseSize(height=1040, width=1040),
+        actions=[
+            URIImagemapAction(
+                link_uri='https://example.com/',
+                area=ImagemapArea(
+                    x=0, y=0, width=520, height=1040
+                )
+            ),
+            MessageImagemapAction(
+                text='hello',
+                area=ImagemapArea(
+                    x=520, y=0, width=520, height=1040
+                )
+            )
+        ]
+    )
+    line_bot_api.reply_message(event.reply_token, message)
 
 import os
 if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 5000))
+    port = int(os.environ.get('PORT', 8080))
     app.run(host='0.0.0.0', port=port)

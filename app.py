@@ -33,11 +33,15 @@ def callback():
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    message = TextSendMessage(text=event.message.text)
+    # message = TextSendMessage(text=event.message.text)
     # message = ImageSendMessage(
     #     original_content_url=".\\123.jpg",
     #     preview_image_url='\\123.jpg'
     # )
+    message = VideoSendMessage(
+        originalContentUrl='https://www.sample-videos.com/video123/mp4/240/big_buck_bunny_240p_1mb.mp4',
+        previewImageUrl='https://www.sample-videos.com/img/Sample-jpg-image-50kb.jpg'
+    )
     line_bot_api.reply_message(event.reply_token, message)
 
 
